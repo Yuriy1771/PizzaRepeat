@@ -1,0 +1,38 @@
+.searchWrapper {
+  position: relative;
+  //left: -120px;
+  .searchIcon {
+    width: 20px;
+    opacity: .3;
+    position: absolute;
+    left: 7px;
+    top:8px;
+  }
+
+  .clearIcon {
+    width: 20px;
+    opacity: .3;
+    position: absolute;
+    right: 10px;
+    top:8px;
+    cursor: pointer;
+
+    &:hover {
+      transition: .3s;
+      opacity: .5;
+    }
+  }
+
+  .inputSearch {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 8px 30px;
+    outline: none;
+    width: 300px;
+    border-radius: 12px;
+
+    &:focus {
+      transition: .3s;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+  }
+}
