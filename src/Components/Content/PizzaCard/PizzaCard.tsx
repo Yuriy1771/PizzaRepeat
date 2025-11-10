@@ -1,23 +1,44 @@
-import React from 'react'
+import React, {FC, useState} from 'react'
 
-const PizzaCard = ({price}) => {
+type Props = {
+    id: number,
+    price: number,
+    title: string,
+    sizes: number[]
+    imgUrl: string
+    types: number[]
+    "category": number,
+    "rating": number
+}
+
+const PizzaCard:FC<Props> = ({price, title, sizes, imgUrl, types}) => {
+    const [activeSize, setActiveSize] =useState<number>(0)
+    const [activeType, setActiveType] = useState<number>(0)
+    const nameTypesPizza = ["тонкое", "традиционное"]
+
   return (
     <div className="pizza-block">
       <img
         className="pizza-block__image"
-        src='https://media.dodostatic.net/image/r:584x584/11ef9a30c3246adebecb726548cbede9.avif'
+        src={imgUrl}
         alt="Pizza"
       />
-      <h4 className="pizza-block__title">Чизбургер-пицца</h4>
+      <h4 className="pizza-block__title">{title}</h4>
       <div className="pizza-block__selector">
         <ul>
-          <li className="active">тонкое</li>
-          <li>традиционное</li>
+            {types.map((typeId, i) =>
+                <li key={i}
+                    onClick={() => setActiveType(i)}
+                    className={activeType === i ? "active" : ""}
+                >{nameTypesPizza[typeId]}
+                </li>)}
         </ul>
         <ul>
-          <li className="active">26 см.</li>
-          <li>30 см.</li>
-          <li>40 см.</li>
+            {sizes.map((s,i) =>
+                <li key={i}
+                    className={activeSize === i ? "active" : ''}
+                    onClick={() => setActiveSize(i)}>{s} см.</li>
+            )}
         </ul>
       </div>
       <div className="pizza-block__bottom">
@@ -36,7 +57,7 @@ const PizzaCard = ({price}) => {
             />
           </svg>
           <span>Добавить</span>
-          <i>2</i>
+          <i>0</i>
         </div>
       </div>
     </div>

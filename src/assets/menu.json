@@ -180,7 +180,7 @@
     "rating": 7
   },
   {
-    "id": 10,
+    "id": 11,
     "imgUrl": "https://media.dodostatic.net/image/r:584x584/11ee796f96d11392a2f6dd73599921b9.avif",
     "title": "Додстер",
     "types": [
@@ -197,7 +197,7 @@
     "rating": 7
   },
   {
-    "id": 11,
+    "id": 12,
     "imgUrl": "https://media.dodostatic.net/image/r:584x584/11ee7d6149eb101d8727573088fa2eff.avif",
     "title": "Диабло",
     "types": [
@@ -214,7 +214,7 @@
     "rating": 7
   },
   {
-    "id": 12,
+    "id": 13,
     "imgUrl": "https://media.dodostatic.net/image/r:584x584/11ee7d61b044583596548a59078bbd33.avif",
     "title": "Кофе Американо",
     "types": [
@@ -231,7 +231,7 @@
     "rating": 7
   },
   {
-    "id": 13,
+    "id": 14,
     "imgUrl": "https://media.dodostatic.net/image/r:584x584/11ee7d61b044583596548a59078bbd33.avif",
     "title": "Кофе Капучино",
     "types": [
@@ -248,7 +248,7 @@
     "rating": 7
   },
   {
-    "id": 14,
+    "id": 15,
     "imgUrl": "https://media.dodostatic.net/image/r:584x584/11ee7d61b0c26a3f85d97a78feee00ad.avif",
     "title": "Кофе Латте",
     "types": [
