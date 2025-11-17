@@ -26,7 +26,7 @@ const PizzaCard:FC<Props> = ({price, title, sizes, imgUrl, types}) => {
       <h4 className="pizza-block__title">{title}</h4>
       <div className="pizza-block__selector">
         <ul>
-            {types.map((typeId, i) =>
+            {types?.map((typeId, i) =>
                 <li key={i}
                     onClick={() => setActiveType(i)}
                     className={activeType === i ? "active" : ""}
@@ -34,7 +34,7 @@ const PizzaCard:FC<Props> = ({price, title, sizes, imgUrl, types}) => {
                 </li>)}
         </ul>
         <ul>
-            {sizes.map((s,i) =>
+            {sizes?.map((s,i) =>
                 <li key={i}
                     className={activeSize === i ? "active" : ''}
                     onClick={() => setActiveSize(i)}>{s} см.</li>

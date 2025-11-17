@@ -1,10 +1,29 @@
-import React, {FC} from 'react'
+import React, {FC, useEffect, useState} from 'react'
 import Categories from "../Categories/Categories";
 import Sort from "../Sort/Sort";
 import PizzaCard from "./PizzaCard/PizzaCard";
-import menu from "../../assets/menu.json"
+import {API} from "../../Dal/api";
 
+type MenuType = {
+    "id": number,
+    "imgUrl": string,
+    "title":string,
+    "types": [],
+    "sizes": [],
+    "price": number,
+    "category": number,
+    "rating": number
+}
 const Content:FC = () => {
+    const [menu, setMenu] = useState<MenuType[]>([])
+
+    useEffect(() => {
+        const fetch = async() => {
+        const data = await API.getMenu()
+        setMenu(data)
+        }
+        fetch()
+    }, [])
     return (
       <div className="wrapper">
           <div className="content">
@@ -15,7 +34,7 @@ const Content:FC = () => {
                   </div>
                   <h2 className="content__title">Все пиццы</h2>
                   <div className="content__items">
-                      {menu.map(m => <PizzaCard key={m.id} {...m}/>)}
+                      {menu?.map(m => <PizzaCard key={m.id} {...m}/>)}
                   </div>
               </div>
           </div>
