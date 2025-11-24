@@ -1,12 +1,19 @@
 import React, {FC, useState} from 'react'
+import {TypeSelectedSort, TypesSortProps} from "./typeSort";
 
-const Sort:FC = () => {
+const Sort:FC<TypesSortProps> = ({selectedSort, setSelectedSort}) => {
   const [showSort, setShowSort] = useState<boolean>(false)
-  const listSort = ['популярности', 'цене', 'алфавиту']
-  const [selectedSort, setSelectedSort] = useState<number>(0)
+  const listSort = [
+      {name: 'популярности (воз.)', sort: '-rating', id: 0},
+      {name: 'популярности (убыв.)', sort: 'rating', id: 1},
+      {name: 'цене (воз.)', sort: '-price', id: 2},
+      {name: 'цене (убыв.)', sort: 'price', id: 3},
+      {name: 'алфавиту (А-Я)', sort: '-title', id: 4},
+      {name: 'алфавиту (Я-А)', sort: 'title', id: 5},
+  ]
 
-  const onClickSort = (indexSort:number) => {
-      setSelectedSort(indexSort)
+  const onClickSort = (sort:TypeSelectedSort) => {
+      setSelectedSort(sort)
       setShowSort(false)
   }
 
@@ -26,13 +33,13 @@ const Sort:FC = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span>{listSort[selectedSort]}</span>
+        <span>{selectedSort.name}</span>
       </div>
       {
         showSort &&
           <div className="sort__popup">
             <ul>
-                {listSort.map((item, i) => <li key={i} onClick={() => onClickSort(i)} className={selectedSort === i ? 'active' : ''}>{item}</li>)}
+                {listSort.map((item, i) => <li key={i} onClick={() => onClickSort(item)} className={selectedSort.id === i ? 'active' : ''}>{item.name}</li>)}
            </ul>
          </div>
         }
