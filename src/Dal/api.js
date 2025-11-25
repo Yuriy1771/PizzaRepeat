@@ -1,10 +1,12 @@
 import axios from "axios";
 
 export const API = {
-    getMenu(activeCategory, selectedSort) {
-        const idCategory = activeCategory === 0 ? '' : activeCategory
+    getMenu(activeCategory, selectedSort, search, curPage) {
+        const idCategory = activeCategory === 0 ? '' : `category=${activeCategory}`
         const order = selectedSort.sort.includes('-') ? 'asc' : 'desc'
         const sortBy = selectedSort.sort.replace('-', '')
-        return axios.get(`https://67bd631a321b883e790c3eac.mockapi.io/items?category=${idCategory}&sortBy=${sortBy}&order=${order}`).then(response => response.data)
+        const searchFor = search && search.length > 0 ? `&search=${search}` : ''
+
+        return axios.get(`https://67bd631a321b883e790c3eac.mockapi.io/items?${idCategory}&sortBy=${sortBy}&order=${order}${searchFor}&limit=6&page=${curPage}`).then(response => response.data)
     }
 }

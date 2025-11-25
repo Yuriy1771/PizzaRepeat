@@ -15,22 +15,24 @@ export type MenuType = {
 type UseGetMenuProps = {
     activeCategory: number
     selectedSort: {name: string, sort: string}
+    search: string | null
+    curPage: number
 }
 
-export const useGetMenu = ({activeCategory, selectedSort}:UseGetMenuProps) => {
+export const useGetMenu = ({activeCategory, selectedSort, search, curPage}:UseGetMenuProps) => {
     const [menu, setMenu] = useState<MenuType[]>([])
     const [preloader, setPreloader] = useState<boolean>(true)
 
     useEffect(() => {
         setPreloader(true)
         const fetch = async() => {
-            const data = await API.getMenu(activeCategory, selectedSort)
+            const data = await API.getMenu(activeCategory, selectedSort, search, curPage)
             setMenu(data)
             setPreloader(false)
         }
         fetch()
         window.scrollTo(0, 0)
-    }, [activeCategory, selectedSort])
+    }, [activeCategory, selectedSort, search, curPage])
 
     return {menu, preloader}
 }

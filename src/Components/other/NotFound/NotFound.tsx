@@ -1,9 +1,9 @@
-import React from 'react'
+import React, {FC} from 'react'
 import styles from './NotFound.module.scss'
 import notFoundImg from '../../../assets/img/notFound.png'
 import {NavLink} from "react-router-dom";
 
-const NotFound = () => {
+const NotFound:FC = () => {
     return (
         <div className={styles.wrapperNotFound}>
             <img src={notFoundImg} alt="404 not found"/>

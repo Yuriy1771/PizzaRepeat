@@ -5,15 +5,19 @@ import PizzaCard from "./PizzaCard/PizzaCard";
 import Skeleton from "../../assets/Skeleton/Skeleton";
 import {useGetMenu} from "../../hooks/useGetMenu";
 import {TypeSelectedSort} from "../Sort/typeSort";
+import {Pagination} from "../other/Pagination/Pagination";
 
-// const some = createContext(null)
+type ContentTypesProps = {
+    search: string | null
+}
 
-const Content:FC = () => {
-    // const value = useContext(some)
+const Content:FC<ContentTypesProps> = ({search}) => {
     const [activeCategory, setActiveCategory] = useState<number>(0)
     const [selectedSort, setSelectedSort] = useState<TypeSelectedSort>({name: 'популярности', sort: 'rating', id: 0})
 
-    const {menu, preloader} = useGetMenu({activeCategory, selectedSort}) //запрос за меню
+    const [curPage, setCurPage] = useState(1)
+    const {menu, preloader} = useGetMenu({activeCategory, selectedSort, search, curPage}) //запрос за меню
+
 
     return (
       <div className="wrapper">
@@ -30,6 +34,7 @@ const Content:FC = () => {
                           : menu?.map(m => preloader ? <Skeleton/> : <PizzaCard key={m.id} {...m}/>)}
                   </div>
               </div>
+              <Pagination totalItems={50} setCurPage={setCurPage} curPage={curPage}/>
           </div>
       </div>
     );
