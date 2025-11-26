@@ -10,7 +10,7 @@ export type TypesPaginationProps = {
 export const Pagination:FC<TypesPaginationProps> = ({totalItems, setCurPage, curPage}) => {
     const totalPages = []
     const pagesCount = Math.ceil(totalItems / 6)
-    for(let i = 1; i <= totalItems / 6; i = i + 1) {
+    for(let i = 1; i <= pagesCount; i = i + 1) {
         totalPages.push({id: i, curPage: i})
     }
 

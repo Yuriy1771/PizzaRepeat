@@ -1,10 +1,12 @@
 import {useEffect, useState} from "react";
 import {API} from "../Dal/api";
+import {useAppDispatch} from "../redux/store";
+import {menuThunk} from "../redux/slices/filterSlice";
 
 export type MenuType = {
     "id": number,
     "imgUrl": string,
-    "title":string,
+    "title": string,
     "types": [],
     "sizes": [],
     "price": number,
@@ -12,23 +14,25 @@ export type MenuType = {
     "rating": number
 }
 
-type UseGetMenuProps = {
+export type UseGetMenuProps = {
     activeCategory: number
-    selectedSort: {name: string, sort: string}
+    selectedSort: { name: string, sort: string }
     search: string | null
     curPage: number
 }
 
-export const useGetMenu = ({activeCategory, selectedSort, search, curPage}:UseGetMenuProps) => {
+export const useGetMenu = ({activeCategory, selectedSort, search, curPage}: UseGetMenuProps) => {
     const [menu, setMenu] = useState<MenuType[]>([])
     const [preloader, setPreloader] = useState<boolean>(true)
-
+    const dispatch = useAppDispatch()
     useEffect(() => {
         setPreloader(true)
-        const fetch = async() => {
-            const data = await API.getMenu(activeCategory, selectedSort, search, curPage)
-            setMenu(data)
+        const fetch = async () => {
+            dispatch(menuThunk({activeCategory, selectedSort, search, curPage}))
             setPreloader(false)
+            //     } catch {
+            //         console.log('error fetching menu')
+            //     }
         }
         fetch()
         window.scrollTo(0, 0)

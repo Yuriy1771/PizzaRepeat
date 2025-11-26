@@ -1,11 +1,12 @@
-import React, {FC, useState} from 'react'
+import React, {FC, useEffect, useState} from 'react'
 import Categories from "../Categories/Categories";
 import Sort from "../Sort/Sort";
 import PizzaCard from "./PizzaCard/PizzaCard";
 import Skeleton from "../../assets/Skeleton/Skeleton";
-import {useGetMenu} from "../../hooks/useGetMenu";
 import {TypeSelectedSort} from "../Sort/typeSort";
 import {Pagination} from "../other/Pagination/Pagination";
+import {useAppDispatch, useAppSelector} from "../../redux/store";
+import {menuThunk} from "../../redux/slices/filterSlice";
 
 type ContentTypesProps = {
     search: string | null
@@ -14,10 +15,18 @@ type ContentTypesProps = {
 const Content:FC<ContentTypesProps> = ({search}) => {
     const [activeCategory, setActiveCategory] = useState<number>(0)
     const [selectedSort, setSelectedSort] = useState<TypeSelectedSort>({name: 'популярности', sort: 'rating', id: 0})
+    const menu = useAppSelector(state => state.filter.menu)
+    const preloader = useAppSelector(state => state.filter.preloader)
 
     const [curPage, setCurPage] = useState(1)
-    const {menu, preloader} = useGetMenu({activeCategory, selectedSort, search, curPage}) //запрос за меню
-
+    const dispatch = useAppDispatch()
+    useEffect(() => {
+        const fetch = async () => {
+            dispatch(menuThunk({activeCategory, selectedSort, search, curPage}))
+        }
+        fetch()
+        window.scrollTo(0, 0)
+    }, [activeCategory, selectedSort, search, curPage])
 
     return (
       <div className="wrapper">
@@ -34,11 +43,10 @@ const Content:FC<ContentTypesProps> = ({search}) => {
                           : menu?.map(m => preloader ? <Skeleton/> : <PizzaCard key={m.id} {...m}/>)}
                   </div>
               </div>
-              <Pagination totalItems={18} setCurPage={setCurPage} curPage={curPage}/>
+              {activeCategory == 0 && <Pagination totalItems={18} setCurPage={setCurPage} curPage={curPage}/>}
           </div>
       </div>
     )
 }
-
 
 export default Content

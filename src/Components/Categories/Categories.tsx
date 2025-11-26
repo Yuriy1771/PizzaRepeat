@@ -1,25 +1,14 @@
 import React, {FC} from 'react'
 import {TypesCategoryProps} from "./typeCategory";
-
-const categoryList = [
-  {id: 0, title: "Все"},
-  {id: 1, title: "Мясные"},
-  {id: 2, title: "Вегетарианская"},
-  {id: 3, title: "Острые"},
-  {id: 4, title: "Додстеры"},
-  {id: 5, title: "Напитки"},
-]
+import {useAppSelector} from "../../redux/store";
 
 const Categories:FC<TypesCategoryProps> = ({setActiveCategory, activeCategory}) => {
-
-  const onClickCategory = (id:number) => {
-    setActiveCategory(id)
-  }
+  const categories = useAppSelector(state => state.filter.categories)
 
   return (
     <div className="categories">
       <ul>
-        {categoryList.map(category => <li key={category.id} className={activeCategory === category.id ? 'active' : ''} onClick={() => onClickCategory(category.id)}>{category.title}</li>)}
+        {categories.map(category => <li key={category.id} className={activeCategory === category.id ? 'active' : ''} onClick={() => setActiveCategory(category.id)}>{category.title}</li>)}
       </ul>
     </div>
   )

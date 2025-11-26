@@ -6,11 +6,7 @@ import {SearchValue} from "../../../App";
 
 const Search = () => {
   const [inputValue, setInputValue] = useState('')
-  const searchContext = useContext(SearchValue)
-  if (!searchContext) {
-    throw new Error("context error");
-  }
-  const {setSearch} = searchContext
+  const {setSearch} = useContext(SearchValue)
 
   useEffect(() => {
     setSearch(inputValue)
