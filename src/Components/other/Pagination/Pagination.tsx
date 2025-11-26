@@ -9,17 +9,19 @@ export type TypesPaginationProps = {
 
 export const Pagination:FC<TypesPaginationProps> = ({totalItems, setCurPage, curPage}) => {
     const totalPages = []
-    for(let i = 0; i <= totalItems; i = i + 10) {
-        totalPages.push(i)
+    const pagesCount = Math.ceil(totalItems / 6)
+    for(let i = 1; i <= totalItems / 6; i = i + 1) {
+        totalPages.push({id: i, curPage: i})
     }
 
     return (
         <div className={s.wrapperPag}>
-            <div className={s.arrowBack} onClick={() => setCurPage(curPage - 1)}>&lt;</div>
+            <div className={s.arrowBack} onClick={() => setCurPage(p => Math.max(p - 1, 1))}>&lt;</div>
             <div className={s.pagination}>
-                {totalPages.map((m,i) => <div className={s.paginationItem}>{i}</div>)}
+                {totalPages.map((m,i) => <div key={i} className={curPage === m.id ? s.paginationItemActive : s.paginationItem}
+                                         onClick={() => setCurPage(m.id)}>{m.curPage}</div>)}
             </div>
-            <div className={s.arrowNext} onClick={() => setCurPage(curPage+1)}>&gt;</div>
+            <div className={s.arrowNext} onClick={() => setCurPage(p => Math.min(p + 1, pagesCount))}>&gt;</div>
         </div>
     )
 }

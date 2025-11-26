@@ -1,4 +1,4 @@
-import React, {createContext, FC, useContext, useState} from 'react'
+import React, {FC, useState} from 'react'
 import Categories from "../Categories/Categories";
 import Sort from "../Sort/Sort";
 import PizzaCard from "./PizzaCard/PizzaCard";
@@ -34,10 +34,10 @@ const Content:FC<ContentTypesProps> = ({search}) => {
                           : menu?.map(m => preloader ? <Skeleton/> : <PizzaCard key={m.id} {...m}/>)}
                   </div>
               </div>
-              <Pagination totalItems={50} setCurPage={setCurPage} curPage={curPage}/>
+              <Pagination totalItems={18} setCurPage={setCurPage} curPage={curPage}/>
           </div>
       </div>
-    );
+    )
 }
 
 
